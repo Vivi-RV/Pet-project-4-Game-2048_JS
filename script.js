@@ -11,60 +11,65 @@ grid.getRandomEmptyCell().linkTile(new Tile(gameBord));
 grid.getRandomEmptyCell().linkTile(new Tile(gameBord));
 
 if (device.isMobile.any()) {
-  handleTouchMove();
+  console.log("phone");
+  setupTouchEvents(); // Додана функція для обробки свайпів
 } else {
   setupInputOnce();
 }
 
-let touchStartX = 0;
-let touchStartY = 0;
+function setupTouchEvents() {
+  let touchStartX = 0;
+  let touchStartY = 0;
 
-gameBord.addEventListener("touchstart", handleTouchStart, false);
-gameBord.addEventListener("touchmove", handleTouchMove, false);
+  gameBord.addEventListener("touchstart", handleTouchStart, false);
+  gameBord.addEventListener("touchmove", handleTouchMove, false);
 
-function handleTouchStart(event) {
-  touchStartX = event.touches[0].clientX;
-  touchStartY = event.touches[0].clientY;
-}
+  function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+  }
 
-function handleTouchMove(event) {
-  if (event.touches.length > 0) {
-    const touchEndX = event.touches[0].clientX;
-    const touchEndY = event.touches[0].clientY;
+  function handleTouchMove(event) {
+    if (event.touches.length > 0) {
+      const touchEndX = event.touches[0].clientX;
+      const touchEndY = event.touches[0].clientY;
 
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
 
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX > 0) {
-        // Swipe right
-        if (canMoveRight()) {
-          moveRight();
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0) {
+          // Swipe right
+          if (canMoveRight()) {
+            moveRight();
+          }
+        } else {
+          // Swipe left
+          if (canMoveLeft()) {
+            moveLeft();
+          }
         }
       } else {
-        // Swipe left
-        if (canMoveLeft()) {
-          moveLeft();
+        if (deltaY > 0) {
+          // Swipe down
+          if (canMoveDown()) {
+            moveDown();
+          }
+        } else {
+          // Swipe up
+          if (canMoveUP()) {
+            moveUp();
+          }
         }
       }
-    } else {
-      if (deltaY > 0) {
-        // Swipe down
-        if (canMoveDown()) {
-          moveDown();
-        }
-      } else {
-        // Swipe up
-        if (canMoveUp()) {
-          moveUp();
-        }
-      }
+
+      touchStartX = 0;
+      touchStartY = 0;
     }
-    touchStartX = 0;
-    touchStartY = 0;
   }
 }
 
+////////////////////////////////////////////
 function setupInputOnce() {
   window.addEventListener("keydown", handleInput, { once: true });
 }
