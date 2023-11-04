@@ -4,6 +4,7 @@ import { Device } from "./device.js";
 
 const gameBord = document.getElementById("game-board");
 const endScreen = document.querySelector(".banner");
+const body = document.body;
 
 const device = new Device();
 const grid = new Grid(gameBord);
@@ -11,7 +12,7 @@ grid.getRandomEmptyCell().linkTile(new Tile(gameBord));
 grid.getRandomEmptyCell().linkTile(new Tile(gameBord));
 
 if (device.isMobile.any()) {
-  console.log("phone");
+  body.classList.add("_toch");
   setupTouchEvents(); // Додана функція для обробки свайпів
 } else {
   setupInputOnce();
