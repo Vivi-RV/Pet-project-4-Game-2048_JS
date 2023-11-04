@@ -11,9 +11,6 @@ body{
   align-items: center;
   height: 100vh;
 }
-body ._toch{
-  overflow: hidden;
-}
 
 #game-board{
   --cell-size: 20vmin;
