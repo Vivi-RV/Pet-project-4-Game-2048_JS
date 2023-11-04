@@ -34,13 +34,6 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: 100ms;
-  animation: show 200ms;
-}
-
-.banner._active{
-  opacity: 1;
-  pointer-events: all;
 }
 
 .banner__title{
@@ -69,6 +62,12 @@ body{
   transform: scale(0.95);
 }
 
+.banner._active{
+  opacity: 1;
+  pointer-events: all;
+  transition: 100ms;
+  animation: show 200ms;
+}
 .cell{
   background: #444;
   border-radius: 1vmin;
